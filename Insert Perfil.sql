@@ -1,10 +1,17 @@
 USE [TECres]
 GO
 
-INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES ('Agente vendedor')
-INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES ('Constructor')
-INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES ('Propietario')
-INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES ('Anunciante')
+INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES ('Administrador')
+
+INSERT INTO [dbo].[Perfiles] ([Perfil])  VALUES ('Agente')
+
+ INSERT INTO [dbo].[Perfiles] ([Perfil]) VALUES('Comprador')
 GO
+
+DBCC CHECKIDENT ('Perfiles')  
+DELETE FROM Perfiles WHERE IDPerfil=4  
+DBCC CHECKIDENT ('Perfiles', RESEED, 2)  
+ 
+SELECT * FROM Perfiles  
 
 

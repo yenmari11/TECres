@@ -12,3 +12,10 @@ INSERT INTO [dbo].[TipoAnuncio] ([Tipo] ,[Precio])
 GO
 
 
+DBCC CHECKIDENT ('TipoAnuncio')  
+DELETE FROM TipoAnuncio WHERE IDTipoAnuncio=5  
+DBCC CHECKIDENT ('TipoAnuncio', RESEED, 3)  
+ 
+SELECT * FROM TipoAnuncio  
+
+

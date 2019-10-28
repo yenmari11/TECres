@@ -1,5 +1,5 @@
 
-
+-- SP DE INSERT DE LA TABLA INMUEBLE
 CREATE PROCEDURE SP_Insert_Inmueble
 (
 @TipoInmueble VARCHAR (20)
@@ -11,6 +11,18 @@ values (@TipoInmueble)
 end
 
 
+-- SP DE INSERT DE LA TABLA PISO
+CREATE PROCEDURE SP_Insert_Piso
+(
+@TipoPiso VARCHAR (20)
+)
+as
+begin
+INSERT INTO Piso(TipoPiso)
+values (@TipoPiso)
+end
+
+-- SP DE INSERT DE LA TABLA UBICACI[ON
 CREATE PROCEDURE SP_Insert_Ubicacion
 (
 @Provincia VARCHAR (20),
@@ -23,49 +35,69 @@ INSERT INTO Ubicacion(Provincia, Canton, Distrito)
 values (@Provincia, @Canton, @Distrito)
 end
 
+
+-- SP DE INSERT DE LA TABLA CATEGORIA ANUNCIO
 CREATE PROCEDURE SP_Insert_CategoriaAnuncio
 (
 @NombreAnuncio VARCHAR (10),
-@Precio INT,
+@TipoAnuncioA INT,
 @DescripcionAnuncio VARCHAR (100)
 )
 as
 begin
-INSERT INTO CategoriaAnuncio(NombreAnuncio, Precio,DescripcionAnuncio)
-values (@NombreAnuncio, @Precio,@DescripcionAnuncio)
+INSERT INTO CategoriaAnuncio(NombreAnuncio, TipoAnuncioA,DescripcionAnuncio)
+values (@NombreAnuncio, @TipoAnuncioA,@DescripcionAnuncio)
 end
 
+
+-- SP DE INSERT DE LA TABLA PUBLICO META
 CREATE PROCEDURE SP_Insert_PublicoMeta
 (
 @Genero VARCHAR (20),
-@RangoEdad VARCHAR (10),
-@Ubicacion VARCHAR (40),
+@EdadMinima INT,
+@EdadMaxima INT,
+@UbicacionA VARCHAR (40),
 @Ingresos INT
 )
 as
 begin
-INSERT INTO PublicoMeta(Genero, RangoEdad, Ubicacion, Ingresos)
-values (@Genero, @RangoEdad, @Ubicacion, @Ingresos)
+INSERT INTO PublicoMeta(Genero, EdadMinima, EdadMaxima, UbicacionA, Ingresos)
+values (@Genero, @EdadMinima, @EdadMaxima, @UbicacionA, @Ingresos)
 end
 
+
+-- -- SP DE INSERT DE LA TABLA ANUNCIO
 CREATE PROCEDURE SP_Insert_Anuncio
 (
 @Propiedad INT,
-@TipoAnuncio INT,
-@PublicoMeta INT,
+@TipoAnuncioA INT,
+@PublicoMetaA INT,
 @FechaInicio VARCHAR (20),
 @FechaFin VARCHAR (20),
-@TarjetaCredito INT
+@TarjetaCredito INT,
+@ComisionA INT
 )
 as
 begin
-INSERT INTO Anuncio (Propiedad, TipoAnuncio, PublicoMeta, FechaInicio, FechaFin, TarjetaCredito)
-values (@Propiedad, @TipoAnuncio, @PublicoMeta, @FechaInicio, @FechaFin, @TarjetaCredito)
+INSERT INTO Anuncio (Propiedad,TipoAnuncioA, PublicoMetaA, FechaInicio, FechaFin, TarjetaCredito, ComisionA)
+values (@Propiedad, @TipoAnuncioA, @PublicoMetaA, @FechaInicio, @FechaFin, @TarjetaCredito, @ComisionA)
 end
 
+-- SP DE INSERT DE LA TABLA PERFILES
+CREATE PROCEDURE SP_Insert_Perfiles
+(
+@Perfil VARCHAR (30)
+)
+as
+begin
+INSERT INTO Perfiles (Perfil)
+values (@Perfil)
+end
+
+-- SP DE INSERT DE LA TABLA OCUPACIONES
 CREATE PROCEDURE SP_Insert_Ocupaciones
 (
-@Ocupacion VARCHAR (15)
+@Ocupacion VARCHAR (20)
 )
 as
 begin
@@ -73,6 +105,8 @@ INSERT INTO Ocupaciones(Ocupacion)
 values (@Ocupacion)
 end
 
+
+-- SP DE INSERT DE LA TABLA TIPO FACTURA
 CREATE PROCEDURE SP_Insert_TipoFactura
 (
 @Tipo VARCHAR (20)
@@ -83,6 +117,20 @@ INSERT INTO TipoFactura(Tipo)
 values (@Tipo)
 end
 
+
+-- SP DE INSERT DE LA TABLA TIPO ANUNCIO
+CREATE PROCEDURE SP_Insert_TipoAnuncio
+(
+@Tipo VARCHAR (20),
+@Precio INT
+)
+as
+begin
+INSERT INTO TipoAnuncio(Tipo, Precio)
+values (@Tipo, @Precio)
+end
+
+-- SP DE INSERT DE LA TABLA COMISION
 CREATE PROCEDURE SP_Insert_Comision
 (
 @Monto INT
@@ -93,59 +141,56 @@ INSERT INTO Comision(Monto)
 values (@Monto)
 end
 
+-- SP DE INSERT DE LA TABLA FACTURA
 CREATE PROCEDURE SP_Insert_Factura
 (
-@Cliente INT,
-@IDAnuncio INT,
-@ClaseFactura INT
+@TipoFacturaA INT ,
+@Cliente INT ,
+@IDAnuncio INT ,
+@MontoTotal INT 
 )
 as
 begin
-INSERT INTO Factura(Cliente, IDAnuncio, ClaseFactura)
-values (@Cliente, @IDAnuncio, @ClaseFactura)
+INSERT INTO Factura( TipoFacturaA, Cliente, IDAnuncio, MontoTotal)
+values (@TipoFacturaA,@Cliente, @IDAnuncio, @MontoTotal)
 end
 
+-- SP DE INSERT DE LA TABLA Usuario
 CREATE PROCEDURE SP_Insert_Usuario
 (
 @Nombre VARCHAR (20) ,
 @Apellido1 VARCHAR (20) ,
 @Apellido2 VARCHAR(20) ,
-@FecNaci VARCHAR (10) ,
-@Nacionalidad VARCHAR (20) ,
+@FecNaci DATE ,
+@Nacionalidad VARCHAR (30) ,
 @UbicacionUsuario INT ,
-@Ingresos INT,
-@Ocupacion INT,
-@Correo VARCHAR (20),
-@Perfil INT
-)
-as
-begin
-INSERT INTO Usuario(Nombre, Apellido1, Apellido2, FecNaci, Nacionalidad, UbicacionUsuario, Ingresos,Ocupacion, Correo,Perfil)
-values (@Nombre, @Apellido1, @Apellido2, @FecNaci, @Nacionalidad, @UbicacionUsuario, @Ingresos, @Ocupacion, @Correo, @Perfil)
-end
-
-CREATE PROCEDURE SP_Insert_Cuenta
-(
+@Ingresos INT ,
+@Ocupacion INT ,
+@Correo VARCHAR (30) ,
+@Perfil INT ,
 @Usuario  VARCHAR (20) ,
-@Contrasena VARCHAR (20)
+@Contrasena VARCHAR (20) 
 )
 as
 begin
-INSERT INTO Cuenta (Usuario, Contrasena)
-values (@Usuario, @Contrasena)
+INSERT INTO Usuario(Nombre, Apellido1, Apellido2, FecNaci, Nacionalidad, UbicacionUsuario, Ingresos,Ocupacion, Correo,Perfil, Usuario, Contrasena)
+values (@Nombre, @Apellido1, @Apellido2, @FecNaci, @Nacionalidad, @UbicacionUsuario, @Ingresos, @Ocupacion, @Correo, @Perfil, @Usuario, @Contrasena)
 end
 
+
+
+-- SP DE INSERT DE LA TABLA PROPIEDAD
 CREATE PROCEDURE SP_Insert_Propiedad
 (
 @Titulo VARCHAR (200),
 @Descripcion VARCHAR (300),
 @TipoInmueble INT ,
-@UbicacionPropiedad VARCHAR (100) ,
+@UbicacionPropiedad INT ,
 @AreaTerreno INT,
 @AreaConstruccion INT,
 @Habitaciones INT,
 @Baños INT,
-@TipoPiso INT,
+@TipoPisoProp INT,
 @Parqueos INT,
 @Gimnasio VARCHAR (4),
 @Piscina VARCHAR(4),
@@ -160,10 +205,12 @@ CREATE PROCEDURE SP_Insert_Propiedad
 )
 as
 begin
-INSERT INTO Propiedad (Titulo, Descripcion, TipoInmueble, UbicacionPropiedad, AreaTerreno, AreaConstruccion, Habitaciones, Baños, TipoPiso, Parqueos, Gimnasio, Piscina, ParqueoVisitas, Precio, Dueño, Foto1,Foto2, Foto3,  Foto4, Foto5 )
-values (@Titulo, @Descripcion, @TipoInmueble, @UbicacionPropiedad, @AreaTerreno, @AreaConstruccion, @Habitaciones, @Baños,@TipoPiso, @Parqueos, @Gimnasio,@Piscina, @ParqueoVisitas, @Precio, @Dueño, @Foto1, @Foto2, @Foto3,  @Foto4, @Foto5)
+INSERT INTO Propiedad (Titulo, Descripcion, TipoInmueble, UbicacionPropiedad, AreaTerreno, AreaConstruccion, Habitaciones, Baños, TipoPisoProp, Parqueos, Gimnasio, Piscina, ParqueoVisitas, Precio, Dueño, Foto1,Foto2, Foto3,  Foto4, Foto5 )
+values (@Titulo, @Descripcion, @TipoInmueble, @UbicacionPropiedad, @AreaTerreno, @AreaConstruccion, @Habitaciones, @Baños,@TipoPisoProp, @Parqueos, @Gimnasio,@Piscina, @ParqueoVisitas, @Precio, @Dueño, @Foto1, @Foto2, @Foto3,  @Foto4, @Foto5)
 end
 
+
+-- SP DE INSERT DE LA TABLA MENSAJE
 CREATE PROCEDURE SP_Insert_Mensaje
 (
 @AnuncioLigado INT,
@@ -177,6 +224,8 @@ INSERT INTO Mensaje (AnuncioLigado, Remitente, Destinatario, Mensaje)
 values (@AnuncioLigado, @Remitente, @Destinatario, @Mensaje)
 end
 
+
+-- SP DE INSERT DE LA TABLA ADMINISTRADORES
 CREATE PROCEDURE SP_Insert_Administradores
 (
 @IDUsuario INT ,
@@ -188,12 +237,71 @@ INSERT INTO Administradores(IDUsuario, FechaIngreso)
 values (@IDUsuario, @FechaIngreso)
 end
 
-CREATE PROCEDURE SP_Insert_Perfiles
-(
-@Perfil VARCHAR (10)
-)
-as
-begin
-INSERT INTO Perfiles (Perfil)
-values (@Perfil)
-end
+
+-- SP DE GET DE LA TABLA TIPO INMUEBLE
+CREATE PROCEDURE getTipoInmueble
+AS
+SELECT * FROM Inmueble
+
+-- SP DE GET DE LA TABLA Administradores
+CREATE PROCEDURE getAdministradores
+AS
+SELECT * FROM Administradores
+
+CREATE PROCEDURE getAnuncio
+AS
+SELECT * FROM Anuncio
+
+CREATE PROCEDURE getCategoriaAnuncio
+AS
+SELECT * FROM CategoriaAnuncio
+
+CREATE PROCEDURE getComision
+AS
+SELECT * FROM Comision
+
+CREATE PROCEDURE getFactura
+AS
+SELECT * FROM Factura
+
+
+CREATE PROCEDURE getInmueble
+AS
+SELECT * FROM Inmueble
+
+CREATE PROCEDURE getOcupaciones
+AS
+SELECT * FROM Ocupaciones
+
+CREATE PROCEDURE getPerfiles
+AS
+SELECT * FROM Perfiles
+
+CREATE PROCEDURE getPiso
+AS
+SELECT * FROM Piso
+
+CREATE PROCEDURE getPublicoMeta
+AS
+SELECT * FROM PublicoMeta
+
+CREATE PROCEDURE getTipoAnuncio
+AS
+SELECT * FROM TipoAnuncio
+
+
+CREATE PROCEDURE getTipoFactura
+AS
+SELECT * FROM TipoFactura
+
+CREATE PROCEDURE getUbicacion
+AS
+SELECT * FROM Ubicacion
+
+
+CREATE PROCEDURE getUsuarios
+AS
+SELECT * FROM Usuario
+
+
+
